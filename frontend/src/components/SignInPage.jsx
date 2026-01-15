@@ -14,7 +14,20 @@ export default function SignInPage({setUserData}){
         const response=await axios.post("https://employee-management-system-backend-k455.onrender.com/api/all/getSignIn",send,{withCredentials:true});
         if(response.data.message==="Login Successfully"){
             setUserData(response.data.data);
-            navigate('/HomePage');
+            try{
+                 const send={gmail};
+const response=await axios.post("https://employee-management-system-backend-k455.onrender.com/api/all/checkUser",send,{withCredentials:true});
+if(response.data.message=== 'user is admin'){
+    navigate("/AdminPage");
+}
+            }catch(err){
+                if(err.response?.data?.message=== 'provide proper detail'){
+                    alert('provide proper detail');
+                }else if(err.response?.data?.message=== 'Not Find'){
+                    alert('Not Find');
+                }
+            }
+            //yaha pa manager ya student
         }
     }catch(err){
         if(err.response?.data?.message==="Something went Wrong"){
