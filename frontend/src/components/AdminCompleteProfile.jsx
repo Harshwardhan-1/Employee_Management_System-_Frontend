@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import './AdminCompleteProfile.css';
 export default function AdminCompleteProfile(){
     const[name,setName]=useState("");
     const [gmail,setGmail]=useState("");
@@ -25,15 +26,17 @@ if(response.data.message=== 'employee created successfull'){
                 alert('provide proper detail');
             }else if(err.response?.data?.message=== 'user already exist'){
                 alert('user already exist');
+            }else if(err.response?.data?.message=== 'Enter proper email id'){
+                alert('Enter proper email id');
             }
         }
     }
     return(
         <>
-        <div>
+        <div className="admin-profile-container">
             <h1>Fill Employee Detail</h1>
-            <p>{harsh?.name}</p>
-            <p>{harsh?.gmail}</p>
+            <p>Name Of Employee:{harsh?.name}</p>
+            <p>Gmail Of Employee:{harsh?.gmail}</p>
             <form onSubmit={handle}>
 <input type="text" placeholder="Enter Employee Name Here" value={name} onChange={(e)=>setName(e.target.value)} />
 <input type="email" placeholder="Enter Employee Gmail Here" value={gmail} onChange={(e)=>setGmail(e.target.value)} />
