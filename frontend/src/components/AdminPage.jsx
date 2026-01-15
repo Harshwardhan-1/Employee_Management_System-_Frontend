@@ -1,6 +1,9 @@
 import {useState,useEffect} from 'react';
 import axios from 'axios';
+import './AdminPage.css';
+import { useNavigate } from 'react-router-dom';
 export default function AdminPage(){
+    const navigate=useNavigate();
     const [data,setData]=useState([]);
     useEffect(()=>{
         const fetch=async()=>{
@@ -16,20 +19,31 @@ if(response.data.message=== 'pending request'){
             }
         }
         fetch();
-    });
+    },[]);
+
+
+    const handle=async(all)=>{
+        navigate('/AdminCompleteProfile',{state:{harsh:all}});
+    }
+
     return(
         <>
-        <h1>This is Admin Page</h1>
+        <h1 className="admin-title">This is Admin Page</h1>
+              <div className="admin-wrapper">
         {
             data.map((all,index)=>(
-                <div key={index}>
+                <div className="admin-card" key={index}>
                     <p>Name:{all?.name}</p>
                     <p>Gmail:{all?.gmail}</p>
                     <p>Identity:{all?.identity}</p>
                     <p>Status:{all?.status}</p>
+                    <div  className="admin-btns">
+                    <button onClick={()=>handle(all)}>Complete Employee Profile</button>
+                </div>
                 </div>
             ))
         }
+        </div>
         </>
     );
 }
