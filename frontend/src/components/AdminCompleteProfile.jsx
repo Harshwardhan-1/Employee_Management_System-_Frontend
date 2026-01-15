@@ -10,9 +10,6 @@ export default function AdminCompleteProfile(){
     const [salary,setSalary]=useState("");
     const location=useLocation();
     const harsh=location.state?.harsh;
-
-
-
     const handle=async(e)=>{
         e.preventDefault();
         const send={name,gmail,department,designation,salary};
@@ -20,6 +17,11 @@ export default function AdminCompleteProfile(){
 const response=await axios.post('https://employee-management-system-backend-k455.onrender.com/api/make/makeProfile',send,{withCredentials:true});
 if(response.data.message=== 'employee created successfull'){
     alert('successfully created');
+    setName('');
+    setGmail('');
+    setDepartment('');
+    setDesignation('');
+    setSalary('');
 }
         }catch(err){
             if(err.response?.data?.message=== 'provide proper detail'){
